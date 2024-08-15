@@ -7,7 +7,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import ui.SearchScreen
 import ui.SortScreen
+import ui.components.TabButton
 import ui.theme.AppTheme
+import androidx.compose.material3.MaterialTheme
 
 @Composable
 fun App(currentScreen: MutableState<MenuItem>) {
@@ -15,17 +17,13 @@ fun App(currentScreen: MutableState<MenuItem>) {
     Column {
         TabRow(selectedTabIndex = currentScreen.value.ordinal) {
 
-            Tab(selected = currentScreen.value == MenuItem.Search,
-                onClick = { currentScreen.value = MenuItem.Search }
-            ){
-                Text(text = "Search")
-            }
+            TabButton(text = "Search",
+                selected = currentScreen.value == MenuItem.Search,
+                onClick = { currentScreen.value = MenuItem.Search })
 
-            Tab(selected = currentScreen.value == MenuItem.Sort,
-                onClick = { currentScreen.value = MenuItem.Sort }
-            ){
-                Text(text = "Sort")
-            }
+            TabButton(text = "Sort",
+                selected = currentScreen.value == MenuItem.Sort,
+                onClick = { currentScreen.value = MenuItem.Sort })
         }
 
         Box {
