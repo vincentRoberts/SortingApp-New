@@ -12,10 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import utilities.SortAlgorithm
-import utilities.bubbleSort
-import utilities.insertionSort
-import utilities.selectionSort
+import utilities.*
 import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -95,7 +92,7 @@ fun SortScreen(){
                             SortAlgorithm.Selection -> selectionSort(typedArray)
                             SortAlgorithm.Insertion -> insertionSort(typedArray)
                             SortAlgorithm.Bubble -> bubbleSort(typedArray)
-                            SortAlgorithm.Merge -> TODO()
+                            SortAlgorithm.Merge -> mergeSort(typedArray)
                         }
 
                         // **New** to Update itemsListSorted with the sorted array
