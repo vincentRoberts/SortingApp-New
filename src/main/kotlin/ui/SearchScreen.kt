@@ -9,11 +9,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import utilities.linearSearch
+import utilities.SearchAlgorithm
 import kotlin.random.Random
+import utilities.binarySearch
+import utilities.linearSearch
+import utilities.MenuItem
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,6 +35,7 @@ fun SearchScreen(){
 
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
+    var selectedSearchAlgorithm by remember { mutableStateOf(SearchAlgorithm.Linear) }
 
     Row(
         modifier = Modifier.fillMaxSize(),
@@ -53,6 +58,18 @@ fun SearchScreen(){
                 label = { Text("Search") }
             )
 
+            SearchAlgorithm.values().forEach { algorithm ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    RadioButton(
+                        selected = selectedSearchAlgorithm == algorithm,
+                        onClick = { selectedSearchAlgorithm = algorithm }
+                    )
+                    Text(algorithm.name)
+                }
+            }
+
             Button(
                 onClick = {
 
@@ -64,9 +81,19 @@ fun SearchScreen(){
                         }
                     }
 
+
+
                     val typedArray = itemsList.map { it as Int }.toTypedArray()
 
-                    foundItemIndex.value = linearSearch(typedArray, searchText.value.toInt())
+                    foundItemIndex.value = when (selectedSearchAlgorithm) {
+                        SearchAlgorithm.Linear -> linearSearch(typedArray, searchText.value.toInt())
+                        SearchAlgorithm.Binary -> {
+                            typedArray.sort()
+                            itemsList.sortBy { it as Int}
+                            binarySearch(typedArray, searchText.value.toInt())
+                        }
+                    }
+
 
 
                     if (foundItemIndex.value != -1) {
@@ -81,12 +108,14 @@ fun SearchScreen(){
                 Text("Search")
             }
 
+
+
             Text(
                 text =
                 when {
-                    foundItemIndex.value != -1 -> "Found index: ${foundItemIndex.value}"
+                    foundItemIndex.value != -1 -> "$selectedSearchAlgorithm: Found index: ${foundItemIndex.value}"
                     itemsList.isEmpty() -> ""
-                    else -> "NOT FOUND"
+                    else -> "$selectedSearchAlgorithm: NOT FOUND"
                 }
             )
         }
