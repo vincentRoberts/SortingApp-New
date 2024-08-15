@@ -22,3 +22,21 @@ fun <T : Comparable<T>> selectionSort(array: Array<T>) {
         }
     }
 }
+
+fun <T : Comparable<T>> insertionSort(array: Array<T>) {
+    val n = array.size
+
+    // Iterate through each element starting from the second element
+    for (i in 1 until n) {
+        val current = array[i] // Store the current element
+        var j = i - 1
+
+        // Shift elements greater than the current element to the right
+        while (j >= 0 && array[j] > current) {
+            array[j + 1] = array[j]
+            j--
+        }
+
+        array[j + 1] = current // Insert the current element into the correct position
+    }
+}
