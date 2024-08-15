@@ -31,6 +31,12 @@ fun SortScreen(){
     //A variable to store the sorted list
     val itemsListSorted = remember { mutableStateListOf<Any>() }
 
+    // **New** To reset itemsList and itemsListSorted when the selectedSortAlgorithm changes
+    LaunchedEffect(selectedSortAlgorithm) {
+        itemsList.clear()
+        itemsListSorted.clear()
+    }
+
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.SpaceBetween
@@ -46,18 +52,18 @@ fun SortScreen(){
             )
 
             //Run the selected sort algorithm over the itemsList
-            val typedArray = itemsList.map { it as Int }.toTypedArray()
+            //val typedArray = itemsList.map { it as Int }.toTypedArray()
 
-            when (selectedSortAlgorithm) {
-                SortAlgorithm.Selection -> selectionSort(typedArray)
-                SortAlgorithm.Insertion -> insertionSort(typedArray)
-                SortAlgorithm.Bubble -> TODO()
-                SortAlgorithm.Merge -> TODO()
-            }
+            //when (selectedSortAlgorithm) {
+            //    SortAlgorithm.Selection -> selectionSort(typedArray)
+             //   SortAlgorithm.Insertion -> insertionSort(typedArray)
+           //     SortAlgorithm.Bubble -> TODO()
+            //    SortAlgorithm.Merge -> TODO()
+           // }
 
             // Update itemsState with the sorted array
-            itemsListSorted.clear()
-            itemsListSorted.addAll(typedArray.asList())
+            //itemsListSorted.clear()
+            //itemsListSorted.addAll(typedArray.asList())
 
             // Radio buttons to select the sort algorithm
             SortAlgorithm.values().forEach { algorithm ->
@@ -81,6 +87,19 @@ fun SortScreen(){
                         repeat(numItems) {
                             itemsList.add(Random.nextInt(0, 1000))
                         }
+
+                        // **New** To apply the seleced sorting algorithm
+                        val typedArray = itemsList.map { p -> p as Int }.toTypedArray()
+                        when (selectedSortAlgorithm) {
+                            SortAlgorithm.Selection -> selectionSort(typedArray)
+                            SortAlgorithm.Insertion -> insertionSort(typedArray)
+                            SortAlgorithm.Bubble -> TODO()
+                            SortAlgorithm.Merge -> TODO()
+                        }
+
+                        // **New** to Update itemsListSorted with the sorted array
+                        itemsListSorted.clear()
+                        itemsListSorted.addAll(typedArray.asList())
                     }
                 },
                 enabled = numberItems.value.isNotBlank()
