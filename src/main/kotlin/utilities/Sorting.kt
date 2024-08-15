@@ -40,3 +40,20 @@ fun <T : Comparable<T>> insertionSort(array: Array<T>) {
         array[j + 1] = current // Insert the current element into the correct position
     }
 }
+
+fun <T : Comparable<T>> bubbleSort(array: Array<T>) {
+    val n = array.size
+
+    // Perform n-1 passes
+    for (i in 0 until n - 1) {
+        // Each pass compares adjacent elements and swaps if necessary
+        for (j in 0 until n - i - 1) {
+            if (array[j] > array[j + 1]) {
+                // Swap elements if they are in the wrong order
+                val temp = array[j]
+                array[j] = array[j + 1]
+                array[j + 1] = temp
+            }
+        }
+    }
+}

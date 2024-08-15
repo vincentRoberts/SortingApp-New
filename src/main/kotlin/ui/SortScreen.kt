@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import utilities.SortAlgorithm
+import utilities.bubbleSort
 import utilities.insertionSort
 import utilities.selectionSort
 import kotlin.random.Random
@@ -93,7 +94,7 @@ fun SortScreen(){
                         when (selectedSortAlgorithm) {
                             SortAlgorithm.Selection -> selectionSort(typedArray)
                             SortAlgorithm.Insertion -> insertionSort(typedArray)
-                            SortAlgorithm.Bubble -> TODO()
+                            SortAlgorithm.Bubble -> bubbleSort(typedArray)
                             SortAlgorithm.Merge -> TODO()
                         }
 
