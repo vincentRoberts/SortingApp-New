@@ -1,8 +1,9 @@
-package utilities
+package ui
 
-import ui.SearchScreen
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import utilities.binarySearch
+import utilities.linearSearch
 
 class SearchTest {
 
