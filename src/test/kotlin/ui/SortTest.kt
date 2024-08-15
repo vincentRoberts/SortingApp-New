@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import utilities.insertionSort
 import utilities.selectionSort
 
-class SortTests {
+class SortTest {
 
     @Test
     fun `selectionSort should handle an empty array`() {
@@ -90,4 +90,6 @@ class SortTests {
         insertionSort(array)
         assertArrayEquals(arrayOf('a', 'b', 'c', 'd'), array)
     }
+
+
 }
